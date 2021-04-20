@@ -5,14 +5,18 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 router.post('/register', async (req, res) => {
-    let {email, password} = req.body.user;
+    let {username, password} = req.body.user;
     try {
+        console.log(req.body)
+        
     const User = await UserModel.create({
-        email,
+        username,
         password: bcrypt.hashSync(password, 13)
     });
 
-    let token = jwt.sign({id: User.id}, "process.env.JWT_SECRET", {expiresIn: 60 * 60 * 24});
+    console.log(User);
+
+    let token = jwt.sign({id: User.id}, process.env.JWT_SECRET, {expiresIn: 60 * 60 * 24});
     
     res.status(201).json({
         message: "User successfully registered",

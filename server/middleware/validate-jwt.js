@@ -26,7 +26,7 @@ const validateJWT = async (req, res, next) => {
             console.log("foundUser -->", foundUser);
 
             if (foundUser) {
-                console.log("request -->", req);
+                // console.log("request -->", req);
                 req.user = foundUser;
                 next();
             } else {
